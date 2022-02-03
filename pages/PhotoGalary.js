@@ -2,11 +2,13 @@ import React, { useState,useEffect } from 'react';
 import { createApi } from "unsplash-js";
 import { AiOutlineCloudDownload } from 'react-icons/ai'
 import Header from './Header';
+import { useSpeechSynthesis } from "react-speech-kit";//used for text-to-speech
 
 
 
 function PhotoGalary(props) {
     const [pics, setPics] = useState([]);
+    const {speak} = useSpeechSynthesis();
 
     const unsplash = new createApi({
         accessKey: "aKLzOTrbEanvLYKHHsqnEh4MlIn4vSraZSwMciM3db8",
@@ -20,7 +22,7 @@ function PhotoGalary(props) {
         }).then((result) => {
             if (result.type === 'success') {
                 const firstPhoto = result.response.results;
-                setPics(firstPhoto);
+                setPics(firstPhoto);      
             }
         }).catch((err) => {
             console.log(err)
@@ -29,6 +31,10 @@ function PhotoGalary(props) {
             setPics([]) // This worked for me
           };
     }, []);
+
+    const downloadSpeak = () => {
+        speak({ text: `Redirecting to Downloading page , Thank you`, rate: 0.8, pitch: 1 })
+    }
 
   
     const downloadButton = `font-semibold bg-gradient-to-r from-purple-500 via-purple-700 to-purple-900 
@@ -48,7 +54,7 @@ function PhotoGalary(props) {
                             src={item.urls.full}
                             className='ring-8 ring-slate-700 rounded-lg hover:animate-bounce self-center'
                         />
-                        <a href={item.links.html} className={downloadButton} rel='noreferrer' target='_blank'>
+                        <a onClick={downloadSpeak} href={item.links.html} className={downloadButton} rel='noreferrer' target='_blank'>
                             <AiOutlineCloudDownload color='white' size='2rem' />
                         </a>
                     </div>

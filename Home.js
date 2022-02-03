@@ -7,6 +7,7 @@ import PhotoGalary from './pages/PhotoGalary'
 
 
 function Home() {
+
     return (
         <div>
             <Routes>

@@ -4,31 +4,41 @@ import WelcomeLogo from './images/WelcomeLogo1.png'
 import { FcStackOfPhotos } from 'react-icons/fc'
 import AllPhotosCollage from './images/AllPhotos.png'
 import Footer from './Footer';
+import { useSpeechSynthesis } from "react-speech-kit";//used for text-to-speech
+
 
 
 const Welcome = () => {
     const [systemView, setsystemView] = useState(false);
+    const { speak } = useSpeechSynthesis();// use for text-to-speech 
+
     let navigate = useNavigate();
 
     const system = () => {
         setsystemView(!systemView);
-        navigate("/gallary")
+        navigate("/gallary");
+        speak({ text: `Welcome To Photo Globe`, rate: 0.8, pitch: 1 })
     }
     const nature = () => {
         setsystemView(!systemView);
         navigate("/nature")
+        speak({ text: `Welcome To Nature Gallary`, rate: 0.8, pitch: 1 })
     }
     const space = () => {
         setsystemView(!systemView);
         navigate("/space")
+        speak({ text: `Welcome To Space Gallary`, rate: 0.8, pitch: 1 })
     }
     const india = () => {
         setsystemView(!systemView);
         navigate("/india")
+        speak({ text: `Welcome To India Gallary`, rate: 0.8, pitch: 1 })
     }
     const wallpaper = () => {
         setsystemView(!systemView);
         navigate("/wallpaper")
+        speak({ text: `Welcome To wallpaper Gallary`, rate: 0.8, pitch: 1 })
+        
     }
     const openButton = `flex space-x-2 bg-slate-300 place-items-center place-self-center h-52 
     px-16 py-8 my-16 mx-auto rounded-lg ring-8 ring-red-400 text-center
@@ -67,7 +77,7 @@ const Welcome = () => {
                     <button style={{ background: "url('https://assets.unenvironment.org/styles/article_billboard_image/s3/2021-05/alberta-2297204_1920.jpg?h=1483c54f&amp;itok=GdjA9GRu')" }}
                         className={openButton} onClick={nature}>
                         <p>Nature Gallary</p>
-                        <div className='lg:text-5xl md:text-4xl sm:text-2xl animate-spin self-end'><FcStackOfPhotos /></div>
+                        <div className='lg:text-5xl md:text-4xl sm:text-2xl animate-spin'><FcStackOfPhotos /></div>
                     </button>
                     <button style={{ background: "url('https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__480.jpg')" }}
                         className={openButton} onClick={space}>

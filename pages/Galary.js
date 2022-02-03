@@ -4,11 +4,15 @@ import { FcCameraIdentification } from 'react-icons/fc';
 import { AiOutlineCloudDownload } from 'react-icons/ai'
 import './Galary.css'
 import Header from './Header';
-import Footer from './Footer';
+import { useSpeechSynthesis } from "react-speech-kit";//used for text-to-speech
+
+
 
 function Galary() {
     const [query, setQuery] = useState("");
     const [pics, setPics] = useState([]);
+    const { speak } = useSpeechSynthesis();// use for text-to-speech 
+
 
     const unsplash = new createApi({
         accessKey: "aKLzOTrbEanvLYKHHsqnEh4MlIn4vSraZSwMciM3db8",
@@ -31,6 +35,8 @@ function Galary() {
         }).catch((err) => {
             console.log(err)
         });
+        speak({ text: `Searching images for ${query}`, rate: 0.8, pitch: 1 })
+
     }
 
     const buttonStyling = `mr-2 font-semibold bg-gradient-to-r from-indigo-500 via-purple-700 to-indigo-800 
@@ -46,17 +52,7 @@ function Galary() {
     return (
         <div>
             <Header />
-            {/* <div className='flex justify-around lg:flex-row md:flex-row py-5 navbar' style={welcomeContainer}>
-                <div className='flex lg:flex-row md:flex-row'>
-                    <h1 className='text-center font-sans font-semibold my-4 text-slate-100 lg:text-5xl md:text-4xl headingLogo'>Photo Globe</h1>
-                    <img className='lg:w-24 md:w-24 sm:w-20 animate-pulse logo' src={Logo}  alt='Logo' />
-                </div>
-                <button className={homeButton} onClick={() => {
-                    navigate("/")
-                }}>
-                    Home
-                </button>
-            </div> */}
+           
             <div>
                 <form className='h-48 grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 place-items-center' onSubmit={searchPhotos}>
                     <div className='lg:justify-self-end md:justify-self-end sm:justify-self-center mx-5'>
